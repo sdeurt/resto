@@ -1,0 +1,151 @@
+*************************************************
+-- Table USERS
+id: (postgres: "serial") (VSC: "number")
+username: (postgres: "varchar") (VSC: "string")
+password: (postgres: "varchar") (VSC: "string")
+admin: (postgres: "boolean") (VSC: "boolean")
+(penser aux relations OneToMany/ManyToOne etc)
+*************************************************
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import { Commande } from './Commandes';
+
+@Entity()
+export class User {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: 'varchar' })
+    username: string;
+
+    @Column({ type: 'varchar' })
+    password: string;
+
+    @Column({ type: 'boolean', default: false })
+    admin: boolean;
+
+    @OneToMany(() => Commande, (commande)=> commande.id)
+    commandes: Commande [];
+}
+
+**************************************************************
+
+-- Tables RESTAURANTS
+id: (postgres: "serial") (VSC: "number")
+ville: (postgres: "varchar") (VSC: "string")
+(penser aux relations OneToMany/ManyToOne etc)
+***************************************************************
+
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import { Commande } from "./Commandes";
+//import { Menu } from './Menus';
+
+@Entity()
+export class Restaurant {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: "character varying" })
+    ville: string;
+
+    @OneToMany(() => Commande, (commande) => commande.id)
+    commandes: Commande[];
+
+
+******************************************************
+
+
+-- Tables MENUS
+id: (postgres: "serial") (VSC: "number")
+nom: (postgres: "varchar") (VSC: "string")
+prix: (postgres: "money") (VSC: "number")
+(penser aux relations OneToMany/ManyToOne etc)
+
+
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Commande } from './Commandes';
+
+@Entity()
+export class Menu {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: 'varchar' })
+    name: string;
+
+    @Column({ type: 'money' })
+    price: number;
+
+    @ManyToMany(() => Commande)
+    @JoinTable()
+    commandesId: Commande[]
+
+
+
+
+************************************************************
+
+
+
+-- Tables COMMANDES
+id: (postgres: "serial") (VSC: "number")
+date: (postgres: "timestamp with time zone") (VSC: "Date")
+statut: string
+prix: (postgres: "money") (VSC: "number")
+
+(penser aux relations OneToMany/ManyToOne etc)
+userId: int
+list_menus: Menus[] 
+
+
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from 'typeorm';
+import { User } from './Users';
+
+@Entity()
+export class Commande {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: 'timestamp with time zone' })
+    date: Date;
+
+    @Column({ type: 'varchar' })
+    status: string;
+
+    @Column({ type: 'money' })
+    price: number;
+
+
+    @ManyToOne(() => User, user => user.id)
+    userId: User;
+
+}
+
+
+************************************************************************************
+
+
+-- Tables STATUS COMMANDES
+id: (postgres: "serial") (VSC: "number")
+intitule: (postgres: "varchar") (VSC: "string")
+(penser aux relations OneToMany/ManyToOne etc)
+
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Commande } from './Commandes';
+
+@Entity()
+export class statuts {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ type: 'timestamp with time zone' })
+    date: Date;
+
+    @ManyToOne(() => statuts, statut=> statut.commandes)
+    statuts: statuts;
+
+
+    @OneToMany(() => Commande, commande => commande.id)
+    commandes: Commande[];
+}
+
+
