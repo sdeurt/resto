@@ -17,4 +17,5 @@ export class User {
 
     @OneToMany(() => Commande, (commande)=> commande.id)
     commandes: Commande [];
-}
+
+};
