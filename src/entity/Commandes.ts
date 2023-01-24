@@ -1,22 +1,28 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from 'typeorm';
 import { Statuts } from './Statuts';
-import { User } from './Users';
+import { Users } from './Users';
 
 @Entity()
-export class Commande {
+export class Commande extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'timestamp with time zone' })
+    @Column({ type: 'timestamp with time zone', default: () => "CURRENT_TIMESTAMP" })
     date: Date;
 
     @Column({ type: 'money' })
     price: number;
 
-    @ManyToOne(() => User, user => user.id)
-    userId: User;
+    @ManyToOne(() => Users, user => user.id)
+    user_id: Users;
 
-    @OneToMany(() => Statuts, statut => statut.id)
+    @ManyToOne(() => Statuts, statut => statut.id)
     statut_id: Statuts
+
+    static findCommandeById(id: number) {
+        return this.createQueryBuilder("commande")
+        .where("commande.id = :id", {id})
+        .getOne()
+    };
 };
