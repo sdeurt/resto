@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm"
+import { Commande } from "./entity/Commandes"
 
 export const myDataSource = new DataSource({
     type: "postgres",
@@ -10,4 +11,7 @@ export const myDataSource = new DataSource({
     entities: ["src/entity/*.js"],
     logging: true,
     synchronize: true,
+    
+
 })
+

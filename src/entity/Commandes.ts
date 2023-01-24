@@ -1,23 +1,23 @@
 
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from 'typeorm';
-import { User } from './Users';
+import { Statuts } from './Statuts';
+import { Users } from './Users';
 
 @Entity()
 export class Commande {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'timestamp with time zone' })
+    @Column({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
     date: Date;
-
-    @Column({ type: 'varchar' })
-    status: string;
 
     @Column({ type: 'money' })
     price: number;
 
+    @ManyToOne(() => Statuts, statuts => statuts.id )
+    statut: Statuts;
 
-    @ManyToOne(() => User, user => user.id)
-    userId: User;
+    @ManyToOne(() => Users, user => user.id)
+    userId: Users;
 
 }

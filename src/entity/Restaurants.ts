@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
 import { Commande } from "./Commandes";
-//import { Menu } from './Menus';
 
 @Entity()
 export class Restaurant {
@@ -13,9 +12,6 @@ export class Restaurant {
     @OneToMany(() => Commande, (commande) => commande.id)
     commandes: Commande[];
 
-   /*  @ManyToMany(() => Menu)
-    @JoinTable()
-    menus: Menu []
-     */
+   
    
 }
