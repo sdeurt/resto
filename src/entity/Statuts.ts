@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Commande } from './Commandes';
 
 @Entity()
@@ -9,10 +9,7 @@ export class Statuts {
     @Column({ type: 'varchar' })
     name: string;
 
-    @Column({ type: 'timestamp with time zone' })
-    date: Date;
-
-
     @OneToMany(() => Commande, commande => commande.id)
     commandes: Commande[];
-}
+
+};

@@ -14,6 +14,6 @@ export class Menu {
 
     @ManyToMany(() => Commande)
     @JoinTable()
-    commandesId: Commande[]
-    
-}
+    commandesId: Commande[];
+
+};
