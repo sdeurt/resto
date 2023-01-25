@@ -15,10 +15,6 @@ export class Commande extends BaseEntity {
     @Column({ type: 'money' })
     price: number;
 
-    /*@ManyToOne(() => Statuts, statut => statut.id)
-    statut_id: Statuts
-
-    */
     @ManyToOne(() => Users, user => user.id)
     userId: Users;
 
