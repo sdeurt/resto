@@ -29,7 +29,18 @@ export class CommandesService {
         const commandes = await Commande.addCommandes(price , userId); 
 
         return commandes.raw;
-        }
+    }
+    
+    async updateCommandes(price, userId, updateId) {
+        const commandes = await Commande.updateCommandes(price, userId, updateId);
 
+        return commandes;
+    }
+
+    async deleteCommandes(deleteId) {
+        const commandes = await Commande.deleteCommandes(deleteId );
+
+        return commandes;
+    }
 };
 

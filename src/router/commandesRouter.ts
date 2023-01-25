@@ -12,3 +12,5 @@ const commandesController = new CommandesController();
 commandesRouter.get('/:id', commandesController.getOneCommande);
 commandesRouter.get('/', commandesController.getAllCommandes);
 commandesRouter.post('/', commandesController.addCommandes);
+commandesRouter.put('/:id', commandesController.updateCommandes);
+commandesRouter.delete('/:id', commandesController.deleteCommandes);

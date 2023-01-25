@@ -23,28 +23,44 @@ export class Commande extends BaseEntity {
 
     static findCommandeById(id: number) {
         return this.createQueryBuilder("commande")
-        .where("commande.id = :id", {id})
-        .getOne()
+            .where("commande.id = :id", { id })
+            .getOne()
     };
 
     static findCommandes() {
         return this.createQueryBuilder("commande")
-        .getMany()
-      /*   return this.createQueryBuilder()
-            .select("commande")
-            .from(Commande, "commande")
-            .getMany() */
+            .getMany()
+        /*   return this.createQueryBuilder()
+              .select("commande")
+              .from(Commande, "commande")
+              .getMany() */
     };
 
-    static addCommandes(price , userId ) {
+    static addCommandes(price, userId) {
         return this.createQueryBuilder()
-        .insert()
-        .into(Commande)
-        .values([
-            { price: price , userId: userId },
-        ])
-        .returning ("*")
-        .execute()
+            .insert()
+            .into(Commande)
+            .values([
+                { price: price, userId: userId },
+            ])
+            .returning("*")
+            .execute()
+    }
+    static updateCommandes(price, userId, updateId) {
+        return this.createQueryBuilder()
+            .update()
+            .set({ price: price, userId: userId })
+            .where("id = :id", { id: updateId })
+            .returning("*")
+            .execute()
     }
 
+    static deleteCommandes(deleteId) {
+        return this.createQueryBuilder()
+            .delete()
+            .from(Commande)
+            .where("id = :id", { id: deleteId })
+            .returning("*")
+            .execute()
+    }
 };

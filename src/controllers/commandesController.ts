@@ -75,5 +75,54 @@ export class CommandesController {
             });
         };
     };
+
+    async updateCommandes(req: Request, res: Response) {
+        const  price = (req.body.price)
+        const userId = (req.body.userId)
+        const updateId = Number(req.params.id)
+        
+        try {
+            const commandes = await commandesService.updateCommandes(price, userId, updateId)
+
+            res.status(200).json({
+                status: "OK",
+                message: "commande mise à jour ",
+                data: commandes
+            });
+        }
+        catch (error) {
+            console.log((error.stack));
+
+            res.status(500).json({
+                status: "FAIL",
+                message: "Erreur serveur",
+                data: null
+            });
+        };
+    }
+
+    async deleteCommandes(req: Request, res: Response) {
+        const deleteCommande_id = parseInt(req.params.id)
+         const  userId = (req.body.userId)
+        
+        try {
+            const commandes = await commandesService.deleteCommandes( deleteCommande_id)
+
+            res.status(200).json({
+                status: "OK",
+                message: "commande supprimée ",
+                data: commandes
+            });
+        }
+        catch (error) {
+            console.log((error.stack));
+
+            res.status(500).json({
+                status: "FAIL",
+                message: "Erreur serveur",
+                data: null
+            });
+        };
+    }
     
 };
