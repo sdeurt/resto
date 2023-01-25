@@ -1,6 +1,8 @@
 
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from 'typeorm';
-import { Statuts } from './Statuts';
+import { Menu } from './Menus';
+import { Restaurant } from './Restaurants';
+//import { Statuts } from './Statuts';
 import { Users } from './Users';
 
 @Entity()
@@ -14,12 +16,18 @@ export class Commande extends BaseEntity {
     @Column({ type: 'money' })
     price: number;
 
-    @ManyToOne(() => Statuts, statut => statut.id)
+    /*@ManyToOne(() => Statuts, statut => statut.id)
     statut_id: Statuts
 
+    */
     @ManyToOne(() => Users, user => user.id)
     userId: Users;
-    static findAddCommandes: any;
+
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.id)
+    restaurant: Restaurant;
+
+    @ManyToOne(() => Menu, (menu) => menu.id)
+    menu: Menu; 
 
     static findCommandeById(id: number) {
         return this.createQueryBuilder("commande")
@@ -36,7 +44,12 @@ export class Commande extends BaseEntity {
               .getMany() */
     };
 
-    static addCommandes(price, userId) {
+    static findCommandesRestaurant(restaurant: string) {
+        return this.createQueryBuilder(" commandeRestaurant")
+        .where("commandesRestaurant.id = : restaurant", {restaurant} )
+    }
+
+    static addCommandes(price ,userId ,) {
         return this.createQueryBuilder()
             .insert()
             .into(Commande)

@@ -10,6 +10,8 @@ export class CommandesController {
     
     async getOneCommande (req: Request, res: Response) {
         const commande_id = parseInt(req.params.id)
+        
+    
         try {
             const commande = await commandesService.getCommandeById(commande_id);
 
@@ -53,8 +55,38 @@ export class CommandesController {
 
 
     async addCommandes(req: Request, res: Response) {
-        const  price = (req.body.price)
-         const  userId = (req.body.userId)
+        
+         const { price, menuId, userId, restaurantId } = req.body;
+
+        const messageErreur = {
+            code: 400,
+            status: "fail",
+            message: "",
+            data: null
+
+        };
+        if (!price && !(typeof (price) != 'number')) {
+            messageErreur.message = "saisie incorrecte: absence prix"
+        }
+
+        else if (!menuId && !(typeof (menuId) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence menuId'
+        }
+        else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence restaurantId'
+
+        }
+        if (messageErreur.message) {
+            res.status(messageErreur.code).json({
+                status: 'fail',
+                message: messageErreur.message,
+                date: null
+            });
+
+            return;
+        };
+            
+        
         
         try {
             const commandes = await commandesService.addCommandes(price, userId)
