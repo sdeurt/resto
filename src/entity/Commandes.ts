@@ -15,13 +15,13 @@ export class Commande extends BaseEntity {
     @Column({ type: 'money' })
     price: number;
 
-    @ManyToOne(() => Users, user => user.id)
+    @ManyToOne(() => Users, user => user.commandes)
     userId: Users;
 
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.id)
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandes)
     restaurant: Restaurant;
 
-    @ManyToOne(() => Menu, (menu) => menu.id)
+    @ManyToOne(() => Menu, (menu) => menu.commandes_id)
     menu: Menu;
 
     static findCommandeById(id: number) {
@@ -44,12 +44,12 @@ export class Commande extends BaseEntity {
         .where("commandesRestaurant.id = : restaurant", {restaurant} )
     };
 
-    static addCommandes(price, userId,) {
+    static addCommandes(price, menuId, userId, restaurantId) {
         return this.createQueryBuilder()
             .insert()
             .into(Commande)
             .values([
-                { price: price, userId: userId },
+                { price: price, userId: userId, menu: menuId, restaurant: restaurantId }
             ])
             .returning("*")
             .execute()

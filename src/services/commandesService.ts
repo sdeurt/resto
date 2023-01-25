@@ -25,8 +25,8 @@ export class CommandesService {
         return commandes;
     }
 
-    async addCommandes(price , userId) {
-        const commandes = await Commande.addCommandes(price , userId); 
+    async addCommandes(price, menuId, userId, restaurantId) {
+        const commandes = await Commande.addCommandes(price, menuId, userId, restaurantId); 
 
         return commandes.raw;
     }

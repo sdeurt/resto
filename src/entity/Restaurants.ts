@@ -9,7 +9,7 @@ export class Restaurant {
     @Column({ type: "varchar" })
     ville: string;
 
-    @OneToMany(() => Commande, (commande) => commande.id)
+    @OneToMany(() => Commande, (commande) => commande.restaurant)
     commandes: Commande[];
 
 };

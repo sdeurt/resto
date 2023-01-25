@@ -89,7 +89,7 @@ export class CommandesController {
         
         
         try {
-            const commandes = await commandesService.addCommandes(price, userId)
+            const commandes = await commandesService.addCommandes(price, menuId, userId, restaurantId)
 
             res.status(200).json({
                 status: "OK",

@@ -18,7 +18,7 @@ export class Users {
     @Column({type: "varchar"})
     e_mail: string;
 
-    @OneToMany(() => Commande, (commande)=> commande.id)
+    @OneToMany(() => Commande, (commande)=> commande.userId)
     commandes: Commande [];
 
 };
