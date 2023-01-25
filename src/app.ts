@@ -21,6 +21,7 @@ app.use(express.json())
 
 // register routes
 app.use('/api/commandes', commandesRouter);
+//app.use('/api/users', usersRouter);
 
 app.use('/*', (req, res) => {
     res.status(404).json({
