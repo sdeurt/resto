@@ -11,3 +11,5 @@ const commandesController = new commandesController_1.CommandesController();
 exports.commandesRouter.get('/:id', commandesController.getOneCommande);
 exports.commandesRouter.get('/', commandesController.getAllCommandes);
 exports.commandesRouter.post('/', commandesController.addCommandes);
+exports.commandesRouter.put('/:id', commandesController.updateCommandes);
+exports.commandesRouter.delete('/:id', commandesController.deleteCommandes);

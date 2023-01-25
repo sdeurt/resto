@@ -17,6 +17,6 @@ exports.myDataSource = new typeorm_1.DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [Users_1.Users, Restaurants_1.Restaurant, Commandes_1.Commande, Menus_1.Menu, Statuts_1.Statuts],
-    logging: true,
+    logging: false,
     synchronize: true,
 });

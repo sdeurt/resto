@@ -16,10 +16,6 @@ export class Commande extends BaseEntity {
     @Column({ type: 'money' })
     price: number;
 
-    /*@ManyToOne(() => Statuts, statut => statut.id)
-    statut_id: Statuts
-
-    */
     @ManyToOne(() => Users, user => user.id)
     userId: Users;
 
@@ -47,7 +43,7 @@ export class Commande extends BaseEntity {
     static findCommandesRestaurant(restaurant: string) {
         return this.createQueryBuilder(" commandeRestaurant")
         .where("commandesRestaurant.id = : restaurant", {restaurant} )
-    }
+    };
 
     static addCommandes(price ,userId ,) {
         return this.createQueryBuilder()
@@ -58,7 +54,8 @@ export class Commande extends BaseEntity {
             ])
             .returning("*")
             .execute()
-    }
+    };
+
     static updateCommandes(price, userId, updateId) {
         return this.createQueryBuilder()
             .update()
@@ -66,7 +63,7 @@ export class Commande extends BaseEntity {
             .where("id = :id", { id: updateId })
             .returning("*")
             .execute()
-    }
+    };
 
     static deleteCommandes(deleteId) {
         return this.createQueryBuilder()
@@ -75,5 +72,5 @@ export class Commande extends BaseEntity {
             .where("id = :id", { id: deleteId })
             .returning("*")
             .execute()
-    }
+    };
 };

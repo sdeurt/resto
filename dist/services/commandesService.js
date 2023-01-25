@@ -14,9 +14,6 @@ exports.CommandesService = void 0;
 const Commandes_1 = require("../entity/Commandes");
 // Exports - Déclarations
 class CommandesService {
-    getAddCommandes() {
-        throw new Error("Method not implemented.");
-    }
     getCommandeById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const commande = yield Commandes_1.Commande.findCommandeById(id);
@@ -34,8 +31,19 @@ class CommandesService {
     }
     addCommandes(price, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const commandes = yield Commandes_1.Commande.findAddCommandes(price, userId);
-            console.log(commandes);
+            const commandes = yield Commandes_1.Commande.addCommandes(price, userId);
+            return commandes.raw;
+        });
+    }
+    updateCommandes(price, userId, updateId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const commandes = yield Commandes_1.Commande.updateCommandes(price, userId, updateId);
+            return commandes;
+        });
+    }
+    deleteCommandes(deleteId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const commandes = yield Commandes_1.Commande.deleteCommandes(deleteId);
             return commandes;
         });
     }

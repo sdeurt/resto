@@ -13,9 +13,6 @@ exports.CommandesController = void 0;
 const commandesService_1 = require("../services/commandesService");
 const commandesService = new commandesService_1.CommandesService();
 class CommandesController {
-    getAddCommandes(arg0, getAddCommandes) {
-        throw new Error("Method not implemented.");
-    }
     getOneCommande(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const commande_id = parseInt(req.params.id);
@@ -63,8 +60,33 @@ class CommandesController {
     ;
     addCommandes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { price, menuId, userId, restaurantId } = req.body;
+            const messageErreur = {
+                code: 400,
+                status: "fail",
+                message: "",
+                data: null
+            };
+            if (!price && !(typeof (price) != 'number')) {
+                messageErreur.message = "saisie incorrecte: absence prix";
+            }
+            else if (!menuId && !(typeof (menuId) != 'number')) {
+                messageErreur.message = ' saisie incorrecte : absence menuId';
+            }
+            else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
+                messageErreur.message = ' saisie incorrecte : absence restaurantId';
+            }
+            if (messageErreur.message) {
+                res.status(messageErreur.code).json({
+                    status: 'fail',
+                    message: messageErreur.message,
+                    date: null
+                });
+                return;
+            }
+            ;
             try {
-                const commandes = yield commandesService.getAddCommandes();
+                const commandes = yield commandesService.addCommandes(price, userId);
                 res.status(200).json({
                     status: "OK",
                     message: "commande ajoutée",
@@ -83,6 +105,53 @@ class CommandesController {
         });
     }
     ;
+    updateCommandes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const price = (req.body.price);
+            const userId = (req.body.userId);
+            const updateId = Number(req.params.id);
+            try {
+                const commandes = yield commandesService.updateCommandes(price, userId, updateId);
+                res.status(200).json({
+                    status: "OK",
+                    message: "commande mise à jour ",
+                    data: commandes
+                });
+            }
+            catch (error) {
+                console.log((error.stack));
+                res.status(500).json({
+                    status: "FAIL",
+                    message: "Erreur serveur",
+                    data: null
+                });
+            }
+            ;
+        });
+    }
+    deleteCommandes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deleteCommande_id = parseInt(req.params.id);
+            const userId = (req.body.userId);
+            try {
+                const commandes = yield commandesService.deleteCommandes(deleteCommande_id);
+                res.status(200).json({
+                    status: "OK",
+                    message: "commande supprimée ",
+                    data: commandes
+                });
+            }
+            catch (error) {
+                console.log((error.stack));
+                res.status(500).json({
+                    status: "FAIL",
+                    message: "Erreur serveur",
+                    data: null
+                });
+            }
+            ;
+        });
+    }
 }
 exports.CommandesController = CommandesController;
 ;

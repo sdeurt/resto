@@ -12,7 +12,9 @@ var Commande_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Commande = void 0;
 const typeorm_1 = require("typeorm");
-const Statuts_1 = require("./Statuts");
+const Menus_1 = require("./Menus");
+const Restaurants_1 = require("./Restaurants");
+//import { Statuts } from './Statuts';
 const Users_1 = require("./Users");
 let Commande = Commande_1 = class Commande extends typeorm_1.BaseEntity {
     static findCommandeById(id) {
@@ -30,6 +32,10 @@ let Commande = Commande_1 = class Commande extends typeorm_1.BaseEntity {
               .getMany() */
     }
     ;
+    static findCommandesRestaurant(restaurant) {
+        return this.createQueryBuilder(" commandeRestaurant")
+            .where("commandesRestaurant.id = : restaurant", { restaurant });
+    }
     static addCommandes(price, userId) {
         return this.createQueryBuilder()
             .insert()
@@ -37,6 +43,22 @@ let Commande = Commande_1 = class Commande extends typeorm_1.BaseEntity {
             .values([
             { price: price, userId: userId },
         ])
+            .returning("*")
+            .execute();
+    }
+    static updateCommandes(price, userId, updateId) {
+        return this.createQueryBuilder()
+            .update()
+            .set({ price: price, userId: userId })
+            .where("id = :id", { id: updateId })
+            .returning("*")
+            .execute();
+    }
+    static deleteCommandes(deleteId) {
+        return this.createQueryBuilder()
+            .delete()
+            .from(Commande_1)
+            .where("id = :id", { id: deleteId })
             .returning("*")
             .execute();
     }
@@ -54,13 +76,17 @@ __decorate([
     __metadata("design:type", Number)
 ], Commande.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Statuts_1.Statuts, statut => statut.id),
-    __metadata("design:type", Statuts_1.Statuts)
-], Commande.prototype, "statut_id", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => Users_1.Users, user => user.id),
     __metadata("design:type", Users_1.Users)
 ], Commande.prototype, "userId", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Restaurants_1.Restaurant, (restaurant) => restaurant.id),
+    __metadata("design:type", Restaurants_1.Restaurant)
+], Commande.prototype, "restaurant", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Menus_1.Menu, (menu) => menu.id),
+    __metadata("design:type", Menus_1.Menu)
+], Commande.prototype, "menu", void 0);
 Commande = Commande_1 = __decorate([
     (0, typeorm_1.Entity)()
 ], Commande);

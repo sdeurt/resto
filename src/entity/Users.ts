@@ -15,6 +15,9 @@ export class Users {
     @Column({ type: 'boolean', default: false })
     admin: boolean;
 
+    @Column({type: "varchar"})
+    e_mail: string;
+
     @OneToMany(() => Commande, (commande)=> commande.id)
     commandes: Commande [];
 
