@@ -1,16 +1,14 @@
-/* import express = require('express');
-import { Userscontroller} from '../controllers/UsersController';
+ import express = require('express');
+import { UsersController} from '../controllers/UsersController';
 
 //export declarations
 export const usersRouter = express.Router();
-const usersController = new Userscontroller();
+const usersController = new UsersController();
 
 
 //routes
 
-usersRouter.post('/', Userscontroller.getUser);
-usersRouter.get('/', Userscontroller.getUser);
-usersRouter.get('/:id', Userscontroller.getOneUser);
-usersRouter.get('/:id', Userscontroller.updateUser);
-usersRouter.get('/:id', Userscontroller.deleteUser);
- */
+usersRouter.get('/', usersController.getAllUsers);
+usersRouter.post('/register', usersController.register);
+usersRouter.post('/login', usersController.login);
+  

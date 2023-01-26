@@ -1,6 +1,7 @@
 // Imports
 import express = require("express");
 import { CommandesController } from "../controllers/commandesController";
+import { authenticateJWT } from "../middlewares/auth";
 
 
 // Exports - Déclarations
@@ -11,6 +12,6 @@ const commandesController = new CommandesController();
 // Routes
 commandesRouter.get('/:id', commandesController.getOneCommande);
 commandesRouter.get('/', commandesController.getAllCommandes);
-commandesRouter.post('/', commandesController.addCommandes);
-commandesRouter.put('/:id', commandesController.updateCommandes);
-commandesRouter.delete('/:id', commandesController.deleteCommandes);
+commandesRouter.post('/', authenticateJWT, commandesController.addCommandes);
+commandesRouter.put('/:id', authenticateJWT, commandesController.updateCommandes);
+commandesRouter.delete('/:id',authenticateJWT, commandesController.deleteCommandes);

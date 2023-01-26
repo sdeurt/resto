@@ -5,7 +5,7 @@ import { Request, Response } from "express"
 import * as bodyParser from "body-parser"
 import { myDataSource } from "./app-data-source"
 import { commandesRouter } from "./router/commandesRouter"
-//import { usersRouter } from "./router/UsersRouter"
+import { usersRouter } from "./router/UsersRouter"
 
 // establish database connection
 myDataSource
@@ -24,7 +24,7 @@ app.use(express.json())
 
 // register routes
 app.use('/api/commandes', commandesRouter);
-//app.use('/api/users', usersRouter);
+app.use('/api/users', usersRouter);
 
 app.use('/*', (req, res) => {
     res.status(404).json({

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { Users } from "../entity/Users";
 import { CommandesService } from "../services/commandesService";
 
 
@@ -56,7 +55,8 @@ export class CommandesController {
 
     async addCommandes(req: Request, res: Response) {
         
-         const { price, userId, menuId, restaurantId } = req.body;
+        const { price, menuId, restaurantId } = req.body;
+        const userId = Number(req.userId);
 
         const messageErreur = {
             code: 400,

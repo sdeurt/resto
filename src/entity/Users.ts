@@ -1,9 +1,9 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity} from 'typeorm';
 import { Commande } from './Commandes';
 
 @Entity()
-export class Users {
+export class Users extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
