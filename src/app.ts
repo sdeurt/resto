@@ -1,8 +1,11 @@
 
 import * as express from "express"
 import { Request, Response } from "express"
+//import { createConnection } from "typeorm"
+import * as bodyParser from "body-parser"
 import { myDataSource } from "./app-data-source"
 import { commandesRouter } from "./router/commandesRouter"
+//import { usersRouter } from "./router/UsersRouter"
 
 // establish database connection
 myDataSource

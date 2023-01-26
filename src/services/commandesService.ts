@@ -1,5 +1,7 @@
 // Imports
 import { Commande } from "../entity/Commandes";
+import { Menu } from "../entity/Menus";
+import { Restaurant } from "../entity/Restaurants";
 import { Users } from "../entity/Users";
 
 
@@ -25,22 +27,26 @@ export class CommandesService {
         return commandes;
     }
 
-    async addCommandes(price , userId) {
-        const commandes = await Commande.addCommandes(price , userId); 
+    async addCommandes(price: number, userId: number, menuId: number, restaurantId: number) {
+        const commandes = await Commande.addCommandes(price , userId, menuId, restaurantId); 
 
         return commandes.raw;
     }
     
-    async updateCommandes(price, userId, updateId) {
-        const commandes = await Commande.updateCommandes(price, userId, updateId);
+    async updateCommandes(price: number, userId: number, restaurantId: number, menuId: number, updateId: number) {
+        const commandes = await Commande.updateCommandes(price, userId, menuId, restaurantId, updateId);
 
         return commandes;
     }
 
-    async deleteCommandes(deleteId) {
-        const commandes = await Commande.deleteCommandes(deleteId );
+    async deleteCommandes(deleteId: number) {
+        const commande = await Commande.findOneBy({ id: deleteId })
+        if (commande) {
+            commande.remove()
+        }
+       // const commandes = await Commande.deleteCommandes(deleteId );
 
-        return commandes;
+        return commande;
     }
 };
 

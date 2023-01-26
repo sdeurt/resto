@@ -48,21 +48,21 @@ export class Commande extends BaseEntity {
         .where("commandesRestaurant.id = : restaurant", {restaurant} )
     };
 
-    static addCommandes(price, userId,) {
+    static addCommandes(price, userId,menuId ,restaurantId) {
         return this.createQueryBuilder()
             .insert()
             .into(Commande)
             .values([
-                { price: price, userId: userId },
+                { price: price, userId: userId, menu: menuId, restaurant: restaurantId },
             ])
             .returning("*")
             .execute()
     };
 
-    static updateCommandes(price, userId, updateId) {
+    static updateCommandes(price, userId,menuId ,restaurantId, updateId) {
         return this.createQueryBuilder()
             .update()
-            .set({ price: price, userId: userId })
+            .set({ price: price, userId: userId, menu: menuId, restaurant: restaurantId })
             .where("id = :id", { id: updateId })
             .returning("*")
             .execute()

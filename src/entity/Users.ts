@@ -1,3 +1,4 @@
+import { JsonWebTokenError } from 'jsonwebtoken';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
 import { Commande } from './Commandes';
 
@@ -22,3 +23,4 @@ export class Users {
     commandes: Commande [];
 
 };
+

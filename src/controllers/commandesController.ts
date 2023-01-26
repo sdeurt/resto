@@ -56,7 +56,7 @@ export class CommandesController {
 
     async addCommandes(req: Request, res: Response) {
         
-         const { price, menuId, userId, restaurantId } = req.body;
+         const { price, userId, menuId, restaurantId } = req.body;
 
         const messageErreur = {
             code: 400,
@@ -89,7 +89,7 @@ export class CommandesController {
         
         
         try {
-            const commandes = await commandesService.addCommandes(price, userId)
+            const commandes = await commandesService.addCommandes(price, userId,  menuId, restaurantId)
 
             res.status(200).json({
                 status: "OK",
@@ -109,12 +109,45 @@ export class CommandesController {
     };
 
     async updateCommandes(req: Request, res: Response) {
-        const  price = (req.body.price)
-        const userId = (req.body.userId)
+        /* const  price = (req.body.price)
+        const userId = (req.body.userId) */
         const updateId = Number(req.params.id)
+
+        
+        const { price, menuId, userId, restaurantId } = req.body;
+
+        const messageErreur = {
+            code: 400,
+            status: "fail",
+            message: "",
+            data: null
+
+        };
+        if (!price && !(typeof (price) != 'number')) {
+            messageErreur.message = "saisie incorrecte: absence prix"
+        }
+
+        else if (!menuId && (typeof (menuId) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence menuId'
+        }
+        else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence restaurantId'
+
+        }
+        if (messageErreur.message) {
+            res.status(messageErreur.code).json({
+                status: 'fail',
+                message: messageErreur.message,
+                date: null
+            });
+
+            return;
+        };
+            
+        console.log('test');
         
         try {
-            const commandes = await commandesService.updateCommandes(price, userId, updateId)
+            const commandes = await commandesService.updateCommandes(price, userId,restaurantId, menuId, updateId )
 
             res.status(200).json({
                 status: "OK",
@@ -135,7 +168,29 @@ export class CommandesController {
 
     async deleteCommandes(req: Request, res: Response) {
         const deleteCommande_id = parseInt(req.params.id)
-         const  userId = (req.body.userId)
+        const userId = (req.body.userId)
+        
+
+        const messageErreur = {
+            code: 400,
+            status: "fail",
+            message: "",
+            data: null
+
+        };
+        if (!userId && !(typeof (userId) != 'number')) {
+            messageErreur.message = "saisie incorrecte: absence prix"
+        }
+
+        if (messageErreur.message) {
+            res.status(messageErreur.code).json({
+                status: 'fail',
+                message: messageErreur.message,
+                date: null
+            });
+
+            return;
+        };
         
         try {
             const commandes = await commandesService.deleteCommandes( deleteCommande_id)
