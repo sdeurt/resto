@@ -15,17 +15,13 @@ export class Commande extends BaseEntity {
     @Column({ type: 'money' })
     price: number;
 
-    /*@ManyToOne(() => Statuts, statut => statut.id)
-    statut_id: Statuts
-
-    */
-    @ManyToOne(() => Users, user => user.id)
+    @ManyToOne(() => Users, user => user.commandes)
     userId: Users;
 
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.id)
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandes)
     restaurant: Restaurant;
 
-    @ManyToOne(() => Menu, (menu) => menu.id)
+    @ManyToOne(() => Menu, (menu) => menu.commandes_id)
     menu: Menu;
 
     static findCommandeById(id: number) {
@@ -77,3 +73,4 @@ export class Commande extends BaseEntity {
             .execute()
     };
 };
+
