@@ -2,7 +2,7 @@ import { Request, response, Response } from "express";
 import { UsersServices } from "../services/usersServices";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken"
-import { Users } from "../entity/Users";
+import { Users } from "../entity/users";
 
 
 const usersServices = new UsersServices();
@@ -10,6 +10,7 @@ const usersServices = new UsersServices();
 const accessTokenSecret = process.env.TOKEN_SECRET as string;
 
 export class UsersController {
+    
     async getAllUsers(req: Request, res: Response) {
 
         try {

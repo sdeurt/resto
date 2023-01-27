@@ -1,12 +1,10 @@
-import { Users } from "../entity/Users";
+import { Users } from "../entity/users";
 import { usersRouter } from "../router/UsersRouter";
 
 
 
 export class UsersServices {
-    static findOne(arg0: { username: any; }) {
-        throw new Error("Method not implemented.");
-    }
+   
     async selectAllUsers() {
         const users = await Users.find();
         if (users) {

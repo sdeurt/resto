@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity} from 'typeorm';
 import { Commande } from "./Commandes";
 
 @Entity()
-export class Restaurant {
+export class Restaurant extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,5 +11,6 @@ export class Restaurant {
 
     @OneToMany(() => Commande, (commande) => commande.restaurant)
     commandes: Commande[];
+  
 
 };

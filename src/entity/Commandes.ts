@@ -2,7 +2,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from 'typeorm';
 import { Menu } from './Menus';
 import { Restaurant } from './Restaurants';
-import { Users } from './Users';
+import { Users } from './users';
 
 @Entity()
 export class Commande extends BaseEntity {
