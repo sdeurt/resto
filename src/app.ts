@@ -6,6 +6,7 @@ import { myDataSource } from "./app-data-source"
 import { commandesRouter } from "./router/commandesRouter"
 import { usersRouter } from "./router/UsersRouter"
 import { restaurantsRouter } from "./router/restaurantsRouter"
+import { menusRouter } from "./router/menusRouter"
 
 // establish database connection
 myDataSource
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use('/api/commandes', commandesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/restaurants', restaurantsRouter);
+app.use('/api/menus', menusRouter);
 
 app.use('/*', (req, res) => {
     res.status(404).json({

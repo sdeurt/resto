@@ -109,12 +109,14 @@ export class CommandesController {
     };
 
     async updateCommandes(req: Request, res: Response) {
-        /* const  price = (req.body.price)
-        const userId = (req.body.userId) */
+      
+        const userId = Number(req.userId);
+
         const updateId = Number(req.params.id)
+        
 
         
-        const { price, menuId, userId, restaurantId } = req.body;
+        const { price, menuId, restaurantId } = req.body;
 
         const messageErreur = {
             code: 400,
@@ -168,7 +170,7 @@ export class CommandesController {
 
     async deleteCommandes(req: Request, res: Response) {
         const deleteCommande_id = parseInt(req.params.id)
-        const userId = (req.body.userId)
+        const userId = Number(req.userId)
         
 
         const messageErreur = {
