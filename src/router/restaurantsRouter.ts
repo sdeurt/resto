@@ -12,8 +12,8 @@ const restaurantsController = new RestaurantsController();
 restaurantsRouter.get('/', restaurantsController.getAllRestaurants);
 restaurantsRouter.get('/:id', restaurantsController.selectRestaurantById);
 restaurantsRouter.post('/', authenticateJWT, restaurantsController.addRestaurant);
-restaurantsRouter.put('/:id', authenticateJWT, restaurantsController.updateRestaurant);
-restaurantsRouter.delete('/:id', authenticateJWT, restaurantsController.deleteRestaurant);
+restaurantsRouter.put('/:id', restaurantsController.updateRestaurant);
+restaurantsRouter.delete('/:id', restaurantsController.deleteRestaurant);
 
 
 

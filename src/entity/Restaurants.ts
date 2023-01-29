@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity} from 'typeorm';
-import { Commande } from "./Commandes";
+import { Commande } from "./commandes";
 
 @Entity()
 export class Restaurant extends BaseEntity{

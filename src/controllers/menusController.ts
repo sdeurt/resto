@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Menu } from "../entity/Menus";
+import { Menu } from "../entity/menus";
 import { MenusServices } from "../services/menusServices";
 
 
@@ -54,7 +54,7 @@ export class MenusController {
 
     async addMenu(req: Request, res: Response) {
         const { price, name, restaurantId } = req.body;
-        const userId = Number(req.userId);
+        //const userId = Number(req.userId);
 
         const messageErreur = {
             code: 400,
@@ -66,7 +66,7 @@ export class MenusController {
         if (!price && !(typeof (price) != 'number')) {
             messageErreur.message = 'saisie incorrecte: prix manquant'
         }
-        else if (!name && !(typeof (userId) != 'number')) {
+        else if (!name && !(typeof (name) != 'number')) {
             messageErreur.message = 'saisie incorrecte: idenfifiant ne correspond pas'
         }
         else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
@@ -144,7 +144,7 @@ export class MenusController {
 
     async deleteMenu(req: Request, res: Response) {
         const deleteId = parseInt(req.params.id);
-        const userId = Number(req.userId)
+        //const userId = Number(req.userId)
 
         const messageErreur = {
             code: 400,
@@ -153,7 +153,7 @@ export class MenusController {
             data: null
 
         };
-        if (!userId && !(typeof (userId) != 'number')) {
+        if (!deleteId && !(typeof (deleteId) != 'number')) {
             messageErreur.message = "saisie incorrecte: userId manquant"
         }
 

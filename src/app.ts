@@ -4,7 +4,7 @@ import { Request, Response } from "express"
 import * as bodyParser from "body-parser"
 import { myDataSource } from "./app-data-source"
 import { commandesRouter } from "./router/commandesRouter"
-import { usersRouter } from "./router/UsersRouter"
+import { usersRouter } from "./router/usersRouter"
 import { restaurantsRouter } from "./router/restaurantsRouter"
 import { menusRouter } from "./router/menusRouter"
 
@@ -29,6 +29,16 @@ app.use('/api/users', usersRouter);
 app.use('/api/restaurants', restaurantsRouter);
 app.use('/api/menus', menusRouter);
 
+app.use(function (req, res, next) {
+
+    res.setHeader('authorization','');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
 app.use('/*', (req, res) => {
     res.status(404).json({
         status: 'FAIL',
@@ -37,38 +47,38 @@ app.use('/*', (req, res) => {
     })
 });
 
-
-/* app.get("/users", async function (req: Request, res: Response) {
-    const users = await myDataSource.getRepository(User).find()
+/* 
+app.get("/users", async function (req: Request, res: Response) {
+    const users = await myDataSource.getRepository(usersRouter).find()
     res.json(users)
 })
 
 app.get("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).findOneBy({
+    const results = await myDataSource.getRepository(usersRouter).findOneBy({
         id: parseInt(req.params.id),
     })
     return res.send(results)
 })
 
 app.post("/users", async function (req: Request, res: Response) {
-    const user = await myDataSource.getRepository(User).create(req.body)
-    const results = await myDataSource.getRepository(User).save(user)
+    const user = await myDataSource.getRepository(usersRouter).create(req.body)
+    const results = await myDataSource.getRepository(usersRouter).save(user)
     return res.send(results)
 })
 
 app.put("/users/:id", async function (req: Request, res: Response) {
-    const user = await myDataSource.getRepository(User).findOneBy({
+    const user = await myDataSource.getRepository(usersRouter).findOneBy({
         id: parseInt(req.params.id),
     })
-    myDataSource.getRepository(User).merge(user, req.body)
-    const results = await myDataSource.getRepository(User).save(user)
+    myDataSource.getRepository(usersRouter).merge(user, req.body)
+    const results = await myDataSource.getRepository(usersRouter).save(user)
     return res.send(results)
 })
 
 app.delete("/users/:id", async function (req: Request, res: Response) {
-    const results = await myDataSource.getRepository(User).delete(req.params.id)
+    const results = await myDataSource.getRepository(usersRouter).delete(req.params.id)
     return res.send(results)
-}) */
+})  */
 
 // start express server
 app.listen(3000)

@@ -8,6 +8,8 @@ import { Users } from "../entity/users";
 const usersServices = new UsersServices();
 
 const accessTokenSecret = process.env.TOKEN_SECRET as string;
+    
+
 
 export class UsersController {
     

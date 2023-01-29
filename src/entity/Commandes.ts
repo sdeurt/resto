@@ -1,7 +1,7 @@
 
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity } from 'typeorm';
-import { Menu } from './Menus';
-import { Restaurant } from './Restaurants';
+import { Menu } from './menus';
+import { Restaurant } from './restaurants';
 import { Users } from './users';
 
 @Entity()

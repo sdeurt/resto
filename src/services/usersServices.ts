@@ -1,9 +1,11 @@
+import { myDataSource } from "../app-data-source";
 import { Users } from "../entity/users";
-import { usersRouter } from "../router/UsersRouter";
+import { usersRouter } from "../router/usersRouter";
 
-
+const userRepository = myDataSource.getRepository(Users);
 
 export class UsersServices {
+    
    
     async selectAllUsers() {
         const users = await Users.find();

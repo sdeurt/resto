@@ -1,4 +1,4 @@
-import { Menu } from "../entity/Menus";
+import { Menu } from "../entity/menus";
 import { menusRouter } from "../router/menusRouter";
 
 //exports - declarations

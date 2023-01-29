@@ -1,7 +1,9 @@
 // Imports
 import express = require("express");
 import { CommandesController } from "../controllers/commandesController";
+import { RestaurantsController } from "../controllers/restaurantsController";
 import { authenticateJWT } from "../middlewares/auth";
+import { restaurantsRouter } from "./restaurantsRouter";
 
 
 // Exports - Déclarations
@@ -14,4 +16,4 @@ commandesRouter.get('/:id', commandesController.getOneCommande);
 commandesRouter.get('/', commandesController.getAllCommandes);
 commandesRouter.post('/', authenticateJWT, commandesController.addCommandes);
 commandesRouter.put('/:id', authenticateJWT, commandesController.updateCommandes);
-commandesRouter.delete('/:id',authenticateJWT, commandesController.deleteCommandes);
+commandesRouter.delete('/:id', commandesController.deleteCommandes);

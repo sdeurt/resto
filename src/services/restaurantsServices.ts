@@ -1,4 +1,4 @@
-import { Restaurant } from "../entity/Restaurants";
+import { Restaurant } from "../entity/restaurants";
 
 
 

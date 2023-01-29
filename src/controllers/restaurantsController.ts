@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Restaurant } from "../entity/Restaurants";
+import { Restaurant } from "../entity/restaurants";
 import { RestaurantsServices } from "../services/restaurantsServices";
 
 
@@ -55,7 +55,7 @@ export class RestaurantsController {
 
     async addRestaurant(req: Request, res: Response) {
         const ville = req.body.ville
-        const userId = Number(req.userId);
+        const restaurantId = Number(req.userId);
 
         //vérification données utilisateurs
 
@@ -73,7 +73,16 @@ export class RestaurantsController {
         try {
             //vérification si le restaurant existe déjà
 
+            const isRestaurantAlreadyExists = await restaurantsServices.selectRestaurantsById(restaurantId);
+            if (isRestaurantAlreadyExists) {
+                res.status(400).json({
+                    status: 'fail',
+                    massage: 'le restaurant existe déjà dans cette ville',
+                    data: null
+                })
+            }
             //création d'un nouveau restaurant
+
             const restaurant = await restaurantsServices.addRestaurant(ville);
 
             res.status(200).json({
@@ -99,7 +108,7 @@ export class RestaurantsController {
     async updateRestaurant(req: Request, res: Response) {
         const { ville, restaurantId } = req.body
         try {
-            const isRestaurantAlreadyExists = await restaurantsServices.selectRestaurantsById(ville);
+            const isRestaurantAlreadyExists = await restaurantsServices.selectRestaurantsById(restaurantId);
 
             if (isRestaurantAlreadyExists) {
                 res.status(400).json({

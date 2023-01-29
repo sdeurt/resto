@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm"
-import { Commande } from "./entity/Commandes"
-import { Menu } from "./entity/Menus"
-import { Restaurant } from "./entity/Restaurants"
+import { Commande } from "./entity/commandes"
+import { Menu } from "./entity/menus"
+import { Restaurant } from "./entity/restaurants"
 import { Users } from "./entity/users"
 import * as dotenv from 'dotenv'
 dotenv.config({path: '.env'})
