@@ -29,8 +29,8 @@ export class MenusController {
 
     async getOneMenu(req: Request, res: Response) {
         const menu_id = parseInt(req.params.id)
-        
-    
+
+
         try {
             const menu = await menusServices.selectMenuById(menu_id);
 
@@ -53,8 +53,26 @@ export class MenusController {
     };
 
     async addMenu(req: Request, res: Response) {
-        const { price, name } = req.body;
-        
+        const { price, name, restaurantId } = req.body;
+        const userId = Number(req.userId);
+
+        const messageErreur = {
+            code: 400,
+            status: 'fail',
+            message: '',
+            data: null
+        };
+
+        if (!price && !(typeof (price) != 'number')) {
+            messageErreur.message = 'saisie incorrecte: prix manquant'
+        }
+        else if (!name && !(typeof (userId) != 'number')) {
+            messageErreur.message = 'saisie incorrecte: idenfifiant ne correspond pas'
+        }
+        else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
+            messageErreur.message = 'saisie incorrecte: absence restaurantId'
+        };
+
         try {
             const newMenu = await menusServices.addMenu(price, name);
             res.status(200).json({
@@ -75,8 +93,36 @@ export class MenusController {
 
 
     async updateMenu(req: Request, res: Response) {
-        const { price, name } = req.body;
+        const { price, name, restaurantId } = req.body;
         const updateId = parseInt(req.params.id);
+
+        const messageErreur = {
+            code: 400,
+            status: "fail",
+            message: "",
+            data: null
+
+        };
+        if (!price && !(typeof (price) != 'number')) {
+            messageErreur.message = "saisie incorrecte: absence prix"
+        }
+
+        else if (!name && (typeof (name) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence name'
+        }
+        else if (!restaurantId && !(typeof (restaurantId) != 'number')) {
+            messageErreur.message = ' saisie incorrecte : absence restaurantId'
+
+        }
+        if (messageErreur.message) {
+            res.status(messageErreur.code).json({
+                status: 'fail',
+                message: messageErreur.message,
+                date: null
+            });
+
+            return;
+        };
 
         try {
             const updateMenu = await menusServices.updateMenu(updateId, price, name);
@@ -98,8 +144,31 @@ export class MenusController {
 
     async deleteMenu(req: Request, res: Response) {
         const deleteId = parseInt(req.params.id);
+        const userId = Number(req.userId)
+
+        const messageErreur = {
+            code: 400,
+            status: "fail",
+            message: "",
+            data: null
+
+        };
+        if (!userId && !(typeof (userId) != 'number')) {
+            messageErreur.message = "saisie incorrecte: userId manquant"
+        }
+
+        if (messageErreur.message) {
+            res.status(messageErreur.code).json({
+                status: 'fail',
+                message: messageErreur.message,
+                date: null
+            });
+
+            return;
+        };
+
         try {
-            const deleteMenu = await menusServices.deleteMenu( deleteId );
+            const deleteMenu = await menusServices.deleteMenu(deleteId);
             res.status(200).json({
                 status: 'ok',
                 message: ' menu supprimé',
@@ -114,6 +183,6 @@ export class MenusController {
                 data: null
             });
         };
-    
+
     };
 };

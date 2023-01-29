@@ -18,7 +18,7 @@ export class CommandesController {
                 status: "OK",
                 message: "Commande récupérée",
                 data: commande
-            });
+            }); 
         }
         catch (error) {
             console.log((error.stack));
@@ -181,7 +181,7 @@ export class CommandesController {
 
         };
         if (!userId && !(typeof (userId) != 'number')) {
-            messageErreur.message = "saisie incorrecte: absence prix"
+            messageErreur.message = "saisie incorrecte: userId manquant"
         }
 
         if (messageErreur.message) {
